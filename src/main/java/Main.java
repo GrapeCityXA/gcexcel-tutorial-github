@@ -6,9 +6,10 @@ public class Main {
 
         Workbook workbook = new Workbook();
 
+        //创建一个WorkSheet的对象
         IWorksheet worksheet = workbook.getWorksheets().get(0);
 
-        //-----------------------------Set Value------------------------------
+        //-----------------------------设置数据值------------------------------
         worksheet.getRange("B3:C7").setValue(new Object[][]{
             {"ITEM", "AMOUNT"},
             {"Income 1", 2500},
@@ -32,7 +33,7 @@ public class Main {
             {"Entertainment", 100},
             {"Miscellaneous", 50},
         });
-
+        //合并单元格
         worksheet.getRange("B2:C2").merge();
         worksheet.getRange("B2").setValue("MONTHLY INCOME");
         worksheet.getRange("B9:C9").merge();
@@ -47,7 +48,7 @@ public class Main {
         worksheet.getRange("E7").setValue("Total Monthly Expenses");
 
 
-        //--------------------------------Set Height & Width--------------------------------
+        //--------------------------------设置宽度和高度--------------------------------
         worksheet.setStandardHeight(26.25);
         worksheet.setStandardWidth(8.43);
 
@@ -59,7 +60,7 @@ public class Main {
         worksheet.getRange("E:F").setColumnWidth(25.57);
         worksheet.getRange("G:G").setColumnWidth(14.285);
 
-        //------------------------------Set Table--------------------------------------
+        //------------------------------设置桌面--------------------------------------
         ITable incomeTable = worksheet.getTables().add(worksheet.getRange("B3:C7"), true);
         incomeTable.setName("tblIncome");
         incomeTable.setTableStyle(workbook.getTableStyles().get("TableStyleMedium4"));
@@ -67,7 +68,7 @@ public class Main {
         expensesTable.setName("tblExpenses");
         expensesTable.setTableStyle(workbook.getTableStyles().get("TableStyleMedium4"));
 
-        //------------------------------Set Formulas-----------------------------------
+        //------------------------------设置公式-----------------------------------
         worksheet.getNames().add("TotalMonthlyIncome", "=SUM(tblIncome[AMOUNT])");
         worksheet.getNames().add("TotalMonthlyExpenses", "=SUM(tblExpenses[AMOUNT])");
         worksheet.getRange("E3").setFormula("=TotalMonthlyExpenses");
@@ -76,7 +77,7 @@ public class Main {
         worksheet.getRange("G7").setFormula("=TotalMonthlyExpenses");
         worksheet.getRange("G9").setFormula("=TotalMonthlyIncome-TotalMonthlyExpenses");
 
-        //----------------------------Set Styles-------------------------
+        //----------------------------设置样式-------------------------
         IStyle currencyStyle = workbook.getStyles().get("Currency");
         currencyStyle.setIncludeAlignment(true);
         currencyStyle.setHorizontalAlignment(HorizontalAlignment.Left);
@@ -133,7 +134,7 @@ public class Main {
         dataBar.getBarColor().setColor(Color.GetRed());
         dataBar.setShowValue(false);
 
-        //--------------------------------Set Shape--------------------------------
+        //--------------------------------设置形状--------------------------------
         IShape shape = worksheet.getShapes().addChart(ChartType.ColumnClustered, 339, 247, 316.5, 346);
         shape.getChart().getChartArea().getFormat().getLine().setTransparency(1);
         shape.getChart().getColumnGroups().get(0).setOverlap(0);
